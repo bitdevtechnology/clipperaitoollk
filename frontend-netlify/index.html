@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClipForge – turn long YouTube videos into short clips</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">ClipForge<small>Auto clipper with local Whisper captions</small></div>
+  <div id="health" class="pill">Checking server…</div>
+</header>
+
+<main class="layout">
+  <section class="panel" aria-labelledby="h-video">
+    <h2 id="h-video">Video</h2>
+    <div class="row">
+      <input id="url" type="url" inputmode="url" placeholder="Paste a YouTube link" autocomplete="off" aria-label="YouTube link">
+      <button id="checkBtn" class="btn">Check video</button>
+    </div>
+    <p id="urlMsg" class="msg" role="status"></p>
+    <div id="info" class="info" hidden>
+      <img id="thumb" alt="">
+      <div><h3 id="vTitle"></h3><p id="vMeta"></p></div>
+    </div>
+
+    <form id="form" hidden>
+      <fieldset>
+        <legend>Clip length</legend>
+        <div class="chips" id="durations"></div>
+      </fieldset>
+      <label class="field">Number of clips <output id="countOut">3</output>
+        <input id="count" type="range" min="1" max="10" value="3">
+      </label>
+      <fieldset>
+        <legend>Shape</legend>
+        <div class="chips" id="ratios"></div>
+      </fieldset>
+
+      <div class="switchrow">
+        <label class="switch"><input id="captions" type="checkbox" checked><span></span>Burn in captions</label>
+      </div>
+      <div id="capOpts" class="capgrid">
+        <label class="field">Caption language
+          <select id="language">
+            <option value="auto">Detect automatically</option>
+            <option value="en">English</option>
+            <option value="si">Sinhala (accuracy varies)</option>
+          </select>
+        </label>
+        <label class="field">Caption style
+          <select id="style">
+            <option value="animated">Word highlight + keywords</option>
+            <option value="plain">Plain</option>
+          </select>
+        </label>
+        <label class="field">Position
+          <select id="position">
+            <option value="bottom">Bottom</option>
+            <option value="middle">Middle</option>
+            <option value="top">Top</option>
+          </select>
+        </label>
+        <label class="field">Text size <output id="sizeOut">100%</output>
+          <input id="size" type="range" min="50" max="200" step="10" value="100">
+        </label>
+      </div>
+
+      <label class="check"><input id="rights" type="checkbox">
+        I own this video or have permission to make clips from it.</label>
+      <button id="go" class="btn primary" type="submit">Generate clips</button>
+    </form>
+  </section>
+
+  <section class="side">
+    <div id="status" class="panel" hidden aria-live="polite">
+      <h2>Progress</h2>
+      <ol id="stages" class="stages"></ol>
+      <div class="bar"><div id="barFill"></div></div>
+      <p id="statusMsg" class="msg"></p>
+      <button id="cancel" class="btn ghost" type="button">Cancel job</button>
+    </div>
+    <div id="results" class="panel" hidden>
+      <h2>Your clips</h2>
+      <p id="keepNote" class="msg"></p>
+      <div id="clips" class="clips"></div>
+    </div>
+    <div id="empty" class="panel muted">
+      <h2>How it works</h2>
+      <p>Paste a link and choose your options. The server downloads the video, transcribes the speech with Whisper, scores the transcript to find the strongest moments, and renders each clip with FFmpeg.</p>
+      <p>Long videos take a while: expect a few minutes for a 10-minute video on a small server. Clips are deleted automatically.</p>
+    </div>
+  </section>
+</main>
+<footer class="foot">Only use videos you own or have permission to reuse. You are responsible for following YouTube's Terms of Service and copyright law.</footer>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

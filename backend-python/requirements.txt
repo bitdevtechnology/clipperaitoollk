@@ -1,0 +1,8 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+yt-dlp
+openai-whisper
+# Note: openai-whisper installs PyTorch. On servers without a GPU, install the small CPU
+# build first (the Dockerfile does this):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ai-clipper-api
+    runtime: docker
+    plan: starter        # the free plan has only 512 MB RAM - too small for Whisper (see README)
+    healthCheckPath: /api/health
+    envVars:
+      - key: ALLOWED_ORIGINS
+        sync: false      # you type your Netlify URL in the Render dashboard
+      - key: WHISPER_MODEL
+        value: base
